@@ -1,32 +1,50 @@
-## Multi-Agent Competitive Programming Tutor 🤖🎓
-A multi-agent AI system built with Java and LangChain4j that acts as a Socratic tutor for algorithmic problem solving.
+### Multi-Agent Agentic Code Reviewer & Socratic Tutor 🤖🎓
+An advanced Multi-Agent System (MAS) built with Java and LangChain4j, designed to provide interactive, Socratic facilitation for algorithmic problem solving.
 
-Unlike standard LLMs (like ChatGPT) that immediately generate the final code, this project constrains AI to act as an educational facilitator. It orchestrates three distinct AI personas that analyze code in the background and guide the user toward the correct solution using hints and back-and-forth dialogue.
+Unlike zero-shot LLM implementations that default to an "answer-generation" anti-pattern (which bypasses student learning), this project implements strict system constraints and agentic routing. It orchestrates a specialized topology of AI agents that perform background code analysis, cross-reference local coding standards via RAG, and guide the user toward an optimal solution using context-aware dialogue.
 
-🧠 The Multi-Agent Workflow
-🧐 The Critic Agent: Runs static analysis on the user's Java submission. It is strictly prompted not to fix the code, but only to identify missing edge cases (e.g., null arrays, out-of-bounds risks) and return its findings as strongly typed Java Records.
+### 🧠 System Architecture & Agent Topology
+## 🧐 The Critic Agent (Domain-Grounded Static Analysis):
+Performs strict edge-case and vulnerability analysis on the user's Java submission.
 
-📊 The Complexity Agent: Acts as a theoretical computer scientist. It evaluates the exact lines of code contributing to the Time (Big-O) and Space complexity.
+RAG Integration: Utilizes Retrieval-Augmented Generation (RAG) to dynamically fetch and inject university/enterprise coding standards into the prompt context via semantic search.
 
-🎓 The Mentor Agent: The Orchestrator. It reads the hidden notes from the Critic and Complexity agents, holds conversational context using Chat Memory, and engages the user in a Socratic dialogue. It asks guiding questions to help the user discover their own bugs.
+Schema Compliance: Constrained to output telemetry strictly as a JSON payload, mapped directly to immutable Java Records for deterministic downstream processing.
 
-## 🛠️ Tech Stack
-Language: Java
+## 📊 The Complexity Agent (Asymptotic Analyzer):
+Functions as a theoretical computer science evaluator. It isolates code segments to calculate and verify the deterministic Time (Big-O) and Space complexity.
 
-AI Framework: LangChain4j (for agent orchestration, memory management, and structured output parsing)
+## 🎓 The Mentor Agent (Stateful Orchestrator):
+The user-facing facilitator. It synthesizes the hidden telemetry from the Critic and Complexity agents, maintaining stateful conversational context using MessageWindowChatMemory. It utilizes this injected context to execute a Socratic dialogue pattern, prompting the user to discover their own logical flaws.
 
-LLM Provider: Groq API (Utilizing Llama-3.1-70B for ultra-fast, free agentic reasoning)
+### 🛠️ Technology Stack
+Language: Java 21 (utilizing Records and modern language features)
 
-Build Tool: Maven
+AI Orchestration: LangChain4j (for multi-agent routing, RAG pipelines, and conversational memory)
 
-## 🚀 How It Works Under the Hood
-This project demonstrates advanced prompt engineering and LLM routing. The Orchestrator takes the user's input and passes it simultaneously to the Critic and Complexity agents. Their outputs are synthesized and injected as "hidden internal notes" into the Mentor Agent's system prompt, giving the Mentor a complete understanding of the student's flaws before the chat even begins.
+Vector Embeddings: AllMiniLM-L6-v2 via In-Memory Embedding Store for localized, offline document vectorization.
 
-## ⚙️ Quick Start
+LLM Inference: Groq API (Utilizing Llama-3.1-70B for high-throughput, low-latency reasoning)
+
+Build System: Maven
+
+### 🚀 Technical Implementation Highlights
+Agentic Routing & Parallel Context Injection: The system intercepts user input and routes it to specialized analysis agents. Their structured outputs are synthesized into a hidden internal prompt payload, giving the Mentor Agent a comprehensive understanding of the code's deficiencies prior to generation.
+
+Retrieval-Augmented Generation (RAG): Implements a full embedding pipeline (Document Loading ➔ Text Chunking/Segmentation ➔ Vectorization ➔ Semantic Retrieval) to ground the Critic Agent's logic in local, proprietary text files (e.g., coding_standards.txt).
+
+Structured Outputs: Mitigates LLM hallucination by forcing the Critic Agent to adhere to a strict JSON schema, parsed directly into Java objects for type-safe execution.
+
+### ⚙️ Quick Start
 Clone the repository.
 
-Ensure you have your free Groq API Key.
+Ensure you have a free Groq API Key.
 
 Add your key to your environment variables: GROQ_API_KEY=gsk_your_key_here
 
-Run the CompetitiveProgrammingMentor.main() method in your IDE to start the interactive console chat.
+Create a coding_standards.txt file on your local machine and update the FileSystemDocumentLoader path in the source code.
+
+Execute the CompetitiveProgrammingMentor.main() method in your IDE to initialize the RAG database and start the interactive terminal session.
+
+### 🗺️ Roadmap (Future Scope)
+Model Context Protocol (MCP) Integration: Upgrading the system to autonomously read and write .java files directly from the local file system or a live GitHub repository.
