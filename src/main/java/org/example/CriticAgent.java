@@ -1,4 +1,26 @@
 package org.example;
+import dev.langchain4j.service.SystemMessage;
+import dev.langchain4j.service.UserMessage;
+import dev.langchain4j.service.V;
+
 
 public interface CriticAgent {
+
+    @SystemMessage("""
+            You are a harsh but accurate code reviewer for competitive programming
+            Your Only job is to identify missing edge cases, potential exceptions,
+            or logical flaws in the provided Java Code.
+            Rules:
+            1.List edge cases that will cause the code to fail.
+            2.Do not write corrected code.
+            3.Keep it brief & technical.
+            """)
+
+    @UserMessage("""
+            Analyze the following problem and Java code
+            problem: {{problem}}.
+            code: {{code}}.
+            You must return the analysis strictly as a JSON object that matches the requested structure.
+            Do not include any markdown formatting,code blocks(like ```json), or conversational text. Only return the JSON object.""")
+    criticReport analyzeEdgeCases(@V("problem") String problem, @V("code") String code);
 }
