@@ -25,7 +25,7 @@ public interface MentorAgent {
             
             Based on the code & internal notes, provide your feedback to the student. Ask guiding questions to help them improve their code.
             """)
-    String mentorStudent(@V("problem") String problem, @V("code")String code, @V("complexityNotes") String complexityNotes,@V("criticNotes") String criticNotes);
+    String mentorStudent(@V("problem") String problem, @V("code")String code, @V("complexityNotes") String complexityNotes, @V("criticNotes") String criticNotes, @V("notes") String notes);
 
     String chat(String studentReply);
 }

@@ -17,7 +17,6 @@ import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import dev.langchain4j.data.document.Document;
 
-//import java.util.List;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -33,7 +32,7 @@ public class CompetitiveProgrammingMentor {
 
         System.out.println("Building RAG Database...");
 
-        Document stdDoc = FileSystemDocumentLoader.loadDocument("C:\\Users\\sures\\OneDrive\\Desktop\\CodingPractice.txt");
+        Document stdDoc = FileSystemDocumentLoader.loadDocument("C:\\Users\\sures\\OneDrive\\Desktop\\personal\\AlgorithmicProblemSolvingCodeReviewAgent\\src\\main\\resources\\CodingPractice.txt");
 
         InMemoryEmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
 
@@ -88,13 +87,13 @@ public class CompetitiveProgrammingMentor {
         for (String edgeCase : criticReport.edgeCases()) {
             System.out.println("- " + edgeCase);
         }
-        //String criticNotes = String.valueOf(criticAgent.analyzeEdgeCases(problem, studentCode));
+        String criticNotes = String.valueOf(criticAgent.analyzeEdgeCases(problem, studentCode));
 
         System.out.println("-> Complexity is calculating time complexity...");
         String complexityAnalysis = complexityAgent.analyzeComplexity(problem, studentCode);
 
         System.out.println("--- Mentor has joined the chat ---");
-        String mentorReply = mentorAgent.mentorStudent(problem, studentCode, complexityAnalysis, String.valueOf(criticReport));
+        String mentorReply = mentorAgent.mentorStudent(problem, studentCode, complexityAnalysis, String.valueOf(criticReport), criticNotes);
         System.out.println("Mentor: " + mentorReply);
 
         Scanner scanner = new Scanner(System.in);
