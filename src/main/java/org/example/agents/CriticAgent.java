@@ -1,7 +1,8 @@
-package org.example;
+package org.example.agents;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
+import org.example.model.CriticReport;
 
 
 public interface CriticAgent {
@@ -22,5 +23,5 @@ public interface CriticAgent {
             code: {{code}}.
             You must return the analysis strictly as a JSON object that matches the requested structure.
             Do not include any markdown formatting,code blocks(like ```json), or conversational text. Only return the JSON object.""")
-    criticReport analyzeEdgeCases(@V("problem") String problem, @V("code") String code);
+    CriticReport analyzeEdgeCases(@V("problem") String problem, @V("code") String code);
 }

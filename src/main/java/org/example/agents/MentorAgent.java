@@ -1,4 +1,4 @@
-package org.example;
+package org.example.agents;
 
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;

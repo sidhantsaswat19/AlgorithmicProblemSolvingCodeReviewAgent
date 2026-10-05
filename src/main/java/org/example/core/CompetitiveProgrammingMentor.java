@@ -1,4 +1,4 @@
-package org.example;
+package org.example.core;
 
 import dev.langchain4j.data.document.loader.FileSystemDocumentLoader;
 /*import dev.langchain4j.mcp.McpToolProvider;
@@ -16,6 +16,10 @@ import dev.langchain4j.model.embedding.onnx.allminilml6v2.AllMiniLmL6V2Embedding
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import dev.langchain4j.store.embedding.inmemory.InMemoryEmbeddingStore;
 import dev.langchain4j.data.document.Document;
+import org.example.agents.ComplexityAgent;
+import org.example.agents.CriticAgent;
+import org.example.agents.MentorAgent;
+import org.example.model.CriticReport;
 
 import java.util.Scanner;
 
@@ -78,7 +82,7 @@ public class CompetitiveProgrammingMentor {
         System.out.println("Starting multi-agent analysis...\n");
 
         System.out.println("-> Critic is analyzing edge cases...");
-        criticReport criticReport = criticAgent.analyzeEdgeCases(problem, studentCode);
+        CriticReport criticReport = criticAgent.analyzeEdgeCases(problem, studentCode);
 
         System.out.println("Did the code pass the critic's analysis? " + criticReport.passed());
         System.out.println("Critic's severity rating (1-10): " + criticReport.severity()+"/10");

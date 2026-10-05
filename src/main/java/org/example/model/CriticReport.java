@@ -1,8 +1,8 @@
-package org.example;
+package org.example.model;
 
 import java.util.List;
 
-public record criticReport(
+public record CriticReport(
     boolean passed,
     int severity,//1 to 10
     List<String> edgeCases,
